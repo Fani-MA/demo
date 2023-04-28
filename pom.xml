@@ -4,10 +4,21 @@
   <groupId>me.fani.michael</groupId>
   <artifactId>sping-demo</artifactId>
   <packaging>jar</packaging>
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
   <version>1.0-SNAPSHOT</version>
   <name>sping-demo</name>
   <url>http://maven.apache.org</url>
+
   <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>3.0.6</version>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -15,4 +26,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
 </project>
