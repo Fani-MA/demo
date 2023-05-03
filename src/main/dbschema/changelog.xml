@@ -21,5 +21,67 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="Create good table" author="misha">
+        <createTable tableName="GOOD">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(45)"/>
+            <column name="PRICE" type="DECIMAL(18.2)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create category table" author="misha">
+        <createTable tableName="CATEGORY">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create good/category table" author="misha">
+        <createTable tableName="GOOD_CAREGORY">
+            <column name="GOOD_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_GOOD_GC" references="GOOD(ID)" />
+            </column>
+            <column name="CATEGORY_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_CATEGORY_GC" references="CATEGORY(ID)" />
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create basket table" author="misha">
+        <createTable tableName="BASKET">
+            <column name="USER_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_BASKET_USER" references="USER(ID)"/>
+            </column>
+            <column name="GOOD_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_BASKET_GOOD" references="GOOD(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create sale table" author="misha">
+        <createTable tableName="SALE">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="CREATE_TIME" type="DATETIME" defaultValueDate="CURRENT_TIMESTAMP" >
+                <constraints nullable="false" />
+            </column>
+            <column name="AMOUNT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_SALE_USER" references="USER(ID)"/>
+            </column>
+            <column name="GOOD_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_SALE_GOOD" references="GOOD(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>
