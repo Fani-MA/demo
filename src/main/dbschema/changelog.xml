@@ -21,5 +21,59 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="Create product table" author="misha">
+        <createTable tableName="PRODUCT">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(45)"/>
+            <column name="PRICE" type="DECIMAL(10.2)"/>
+            <column name="CATEGORY_ID" type="INT" >
+                <constraints foreignKeyName="FK_CATEGORY_ID" nullable="true" references="CETEGORY(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create category table" author="misha">
+        <createTable tableName="CATEGORY">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="Create cart table" author="misha">
+        <createTable tableName="BASKET">
+            <column name="USER_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_CART_USER" references="USER(ID)"/>
+            </column>
+            <column name="PRODUCT_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_CART_PRODUCT" references="PRODUCT(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create sale table" author="misha">
+        <createTable tableName="SALE">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="CREATE_TIME" type="DATETIME" defaultValueDate="CURRENT_TIMESTAMP" >
+                <constraints nullable="false" />
+            </column>
+            <column name="AMOUNT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_SALE_USER" references="USER(ID)"/>
+            </column>
+            <column name="PRODUCT_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_SALE_PRODUCT" references="PRODUCT(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>
