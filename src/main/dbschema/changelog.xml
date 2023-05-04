@@ -7,18 +7,8 @@
 
 
 
-    <changeSet id="Create product table" author="misha">
-        <createTable tableName="PRODUCT">
-            <column name="ID" type="INT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR(45)"/>
-            <column name="PRICE" type="DECIMAL(10.2)"/>
-            <column name="CATEGORY_ID" type="INT" >
-                <constraints foreignKeyName="FK_CATEGORY_ID" nullable="true" references="CETEGORY(ID)"/>
-            </column>
-        </createTable>
-    </changeSet>
+
+    
 
     <changeSet id="Create category table" author="misha">
         <createTable tableName="CATEGORY">
