@@ -75,5 +75,12 @@
         </createTable>
     </changeSet>
 
-
+    <changeSet id="Create cart table" author="misha">
+        <createTable tableName="SORT">
+            <column name="USER_ID" type="INT">
+            </column>
+            <column name="PRODUCT_ID" type="INT">
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
