@@ -45,7 +45,7 @@
 
 
     <changeSet id="Create cart table" author="misha">
-        <createTable tableName="BASKET">
+        <createTable tableName="CART">
             <column name="USER_ID" type="INT">
                 <constraints primaryKey="false" foreignKeyName="FK_CART_USER" references="USER(ID)"/>
             </column>
