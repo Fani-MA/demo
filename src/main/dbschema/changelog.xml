@@ -5,21 +5,59 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
-    <changeSet id="Creating user table" author="snorochevskiy">
-        <createTable tableName="USER">
+
+
+
+    
+
+    <changeSet id="Create category table" author="misha">
+        <createTable tableName="CATEGORY">
             <column name="ID" type="INT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="USERNAME" type="varchar(16)"/>
-            <column name="PASSWORD" type="varchar(32)">
-                <constraints nullable="false"/>
+            <column name="NAME" type="VARCHAR(45)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="Create cart table" author="misha">
+        <createTable tableName="CART">
+            <column name="USER_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_CART_USER" references="USER(ID)"/>
             </column>
-            <column name="EMAIL" type="varchar(255)"/>
-            <column name="CREATE_TIME" type="datetime" defaultValueDate="CURRENT_TIMESTAMP" >
-                <constraints nullable="false" />
+            <column name="PRODUCT_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_CART_PRODUCT" references="PRODUCT(ID)"/>
             </column>
         </createTable>
     </changeSet>
 
+    <changeSet id="Create sale table" author="misha">
+        <createTable tableName="SALE">
+            <column name="ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="CREATE_TIME" type="DATETIME" defaultValueDate="CURRENT_TIMESTAMP" >
+                <constraints nullable="false" />
+            </column>
+            <column name="AMOUNT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_SALE_USER" references="USER(ID)"/>
+            </column>
+            <column name="PRODUCT_ID" type="INT">
+                <constraints primaryKey="false" foreignKeyName="FK_SALE_PRODUCT" references="PRODUCT(ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create cart table" author="misha">
+        <createTable tableName="SORT">
+            <column name="USER_ID" type="INT">
+            </column>
+            <column name="PRODUCT_ID" type="INT">
+            </column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>
