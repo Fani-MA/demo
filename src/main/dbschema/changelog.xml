@@ -5,21 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
-    <changeSet id="Creating user table" author="snorochevskiy">
-        <createTable tableName="USER">
-            <column name="ID" type="INT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="USERNAME" type="varchar(16)"/>
-            <column name="PASSWORD" type="varchar(32)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="EMAIL" type="varchar(255)"/>
-            <column name="CREATE_TIME" type="datetime" defaultValueDate="CURRENT_TIMESTAMP" >
-                <constraints nullable="false" />
-            </column>
-        </createTable>
-    </changeSet>
+
 
     <changeSet id="Create product table" author="misha">
         <createTable tableName="PRODUCT">
