@@ -22,3 +22,12 @@ Run Liquibase migration:
 ```
 mvn liquibase:update
 ```
+
+
+```sql
+INSERT INTO USER(USERNAME, PASSWORD, EMAIL)
+VALUES
+('John Doe', '1111', 'john@gmail.com'),
+('Chris', '1111', 'chris@gmail.com')
+;
+```
