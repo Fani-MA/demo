@@ -1,11 +1,11 @@
 package me.fani.michael.persistence.dao;
 
 import me.fani.michael.persistence.entity.User;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface UserRepo extends Repository<User, Long> {
+public interface UserRepo extends CrudRepository<User, Long> {
 
     List<User> findAll(); // SELECT * FROM user
 

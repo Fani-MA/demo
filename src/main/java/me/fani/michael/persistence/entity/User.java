@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "USER")
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
 
@@ -25,6 +26,11 @@ public class User implements Serializable {
 
     @Column(name = "CREATE_TIME")
     private Timestamp createTime;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private UserInfo info;
+
 
     public long getId() {
         return id;
@@ -64,6 +70,14 @@ public class User implements Serializable {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public Optional<UserInfo> getInfo() {
+        return Optional.ofNullable(info);
+    }
+
+    public void setInfo(UserInfo info) {
+        this.info = info;
     }
 
     @Override
