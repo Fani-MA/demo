@@ -1,5 +1,6 @@
 package me.fani.michael.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -19,6 +20,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<Product> products;
 
 
@@ -55,6 +57,4 @@ public class Category {
                 '}';
     }
 
-    public Category() {
-    }
 }
