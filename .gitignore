@@ -8,3 +8,5 @@ liquibase.advanced.flowfile.yaml
 liquibase.endstage.flow
 liquibase.flowfile.yaml
 liquibase.flowvariables.yaml
+src/main/dbschema/liquibase.properties
+src/main/resources/application.properties
