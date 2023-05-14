@@ -5,12 +5,13 @@ import me.fani.michael.persistence.entity.User;
 import me.fani.michael.web.dto.CreateUserRequest;
 import me.fani.michael.web.dto.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("users")
@@ -19,9 +20,10 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
+
+
     @GetMapping
     public List<User> allUsers() {
-        var resp = new Resp();
         return userRepo.findAll();
     }
 
