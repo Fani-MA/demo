@@ -11,11 +11,11 @@ public class Cart {
     @Column(name = "ID")
     private long id;
 
-    //@Column(name = "PRODUCT_ID")
     @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
     private Product productId;
 
-    //@Column(name = "USER_ID")
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User userId;
 }

@@ -29,7 +29,7 @@ public class Product {
     private List<Cart> carts;
 
 
-    @OneToMany(mappedBy = "productCheckout")
+    @OneToMany(mappedBy = "productCheckout",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Checkout> checkouts;
 

@@ -5,19 +5,25 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "SALE")
 public class Checkout {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private long id;
 
+    @Column(name = "CREATE_TIME")
     private Timestamp createTime;
 
+    @Column(name = "AMOUNT")
     private int amount;
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User userCheckout;
 
     @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
     private Product productCheckout;
 
 
@@ -61,6 +67,14 @@ public class Checkout {
         this.productCheckout = productCheckout;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Checkout{" +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", amount=" + amount +
+                ", userCheckout=" + userCheckout +
+                ", productCheckout=" + productCheckout +
+                '}';
+    }
 }
