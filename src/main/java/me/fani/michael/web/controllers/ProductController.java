@@ -21,10 +21,9 @@ public class ProductController {
 
 
     @GetMapping
-   public List<Product> allProduct(){
-       var resp = new Resp();
+    public List<Product> allProduct(){
         return productRepo.findAll();
-   }
+    }
 
     @GetMapping("{id}")
     public Resp product(@PathVariable("id") Long id){

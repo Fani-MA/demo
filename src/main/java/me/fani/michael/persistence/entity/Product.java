@@ -3,6 +3,8 @@ package me.fani.michael.persistence.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name ="PRODUCT")
 public class Product {
@@ -21,6 +23,31 @@ public class Product {
     @ManyToOne
     @JsonIgnore
     private Category category;
+
+    @OneToMany(mappedBy ="productId", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Cart> carts;
+
+
+    @OneToMany(mappedBy = "productCheckout")
+    @JsonIgnore
+    private List<Checkout> checkouts;
+
+    public List<Checkout> getCheckouts() {
+        return checkouts;
+    }
+
+    public void setCheckouts(List<Checkout> checkouts) {
+        this.checkouts = checkouts;
+    }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -64,7 +91,5 @@ public class Product {
                 '}';
     }
 
-    public Product(){
 
-    }
 }

@@ -2,6 +2,8 @@ package me.fani.michael.web.dto;
 
 public class CreateProductRequest {
     private String name;
+    private double price;
+
 
     public String getName() {
         return name;
@@ -18,6 +20,4 @@ public class CreateProductRequest {
     public double getPrice() {
         return price;
     }
-
-    private double price;
 }
