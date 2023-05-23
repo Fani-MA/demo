@@ -33,12 +33,12 @@ public class User implements Serializable {
     @PrimaryKeyJoinColumn
     private UserInfo info;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "userId",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Cart> cartListUser;
 
 
-    @OneToMany(mappedBy = "userCheckout")
+    @OneToMany(mappedBy = "userCheckout",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Checkout> checkouts;
 

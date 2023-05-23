@@ -24,9 +24,9 @@ public class Product {
     @JsonIgnore
     private Category category;
 
-    @OneToMany(mappedBy ="productId", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Cart> carts;
+//    @OneToMany(mappedBy ="productId", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Cart> carts;
 
 
     @OneToMany(mappedBy = "productCheckout",fetch = FetchType.LAZY)
@@ -41,13 +41,13 @@ public class Product {
         this.checkouts = checkouts;
     }
 
-    public List<Cart> getCarts() {
-        return carts;
-    }
-
-    public void setCarts(List<Cart> carts) {
-        this.carts = carts;
-    }
+//    public List<Cart> getCarts() {
+//        return carts;
+//    }
+//
+//    public void setCarts(List<Cart> carts) {
+//        this.carts = carts;
+//    }
 
     public void setId(long id) {
         this.id = id;
