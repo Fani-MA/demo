@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface CheckoutRepo extends CrudRepository<Checkout, Long> {
 
+    @Override
     List<Checkout> findAll();
 
     Checkout getById(Long id);
+
+    //List<Checkout> findByUser(Long id);
 }

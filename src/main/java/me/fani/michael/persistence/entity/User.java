@@ -11,7 +11,6 @@ import java.util.Optional;
 @Entity
 @Table(name = "USER")
 public class User implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")

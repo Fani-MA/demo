@@ -85,7 +85,7 @@
             <column name="USER_ID" type="INT">
                 <constraints primaryKey="false" foreignKeyName="FK_USER_ID" references="USER(ID)"/>
             </column>
-            <column name="ADDRESS" type="VARCHAR(256)" />
+            <column name="ADDRESS" type="VARCHAR(255)" />
         </createTable>
     </changeSet>
 

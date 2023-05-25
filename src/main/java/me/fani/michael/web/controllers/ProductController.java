@@ -1,6 +1,8 @@
 package me.fani.michael.web.controllers;
 
+import me.fani.michael.persistence.dao.CategoryReposirory;
 import me.fani.michael.persistence.dao.ProductRepo;
+import me.fani.michael.persistence.entity.Category;
 import me.fani.michael.persistence.entity.Product;
 import me.fani.michael.web.dto.CreateProductRequest;
 import me.fani.michael.web.dto.Resp;
@@ -16,6 +18,8 @@ public class ProductController {
 
     @Autowired
     private ProductRepo productRepo;
+    @Autowired
+    private CategoryReposirory  categoryReposirory;
 
 
     @GetMapping
@@ -37,10 +41,18 @@ public class ProductController {
         var newProduct = new Product();
         newProduct.setName(request.getName());
         newProduct.setPrice(request.getPrice());
+        Category category;
+        if(!categoryReposirory.existsById(request.getCategoryId())) {
+            category = new Category();
+            category.setId(1l);
+        }else {
+            category = categoryReposirory.getById(request.getCategoryId());
+        }
+        newProduct.setCategory(category);
         Product saveProduct = productRepo.save(newProduct);
         resp.setStr(saveProduct.toString());
-
         return resp;
     }
+
 
 }

@@ -4,6 +4,8 @@ public class CreateProductRequest {
     private String name;
     private double price;
 
+    private Long categoryId;
+
 
     public String getName() {
         return name;
@@ -19,5 +21,13 @@ public class CreateProductRequest {
 
     public double getPrice() {
         return price;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

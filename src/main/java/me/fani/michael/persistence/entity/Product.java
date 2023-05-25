@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name ="PRODUCT")
@@ -24,11 +25,6 @@ public class Product {
     @JsonIgnore
     private Category category;
 
-//    @OneToMany(mappedBy ="productId", fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    private List<Cart> carts;
-
-
     @OneToMany(mappedBy = "productCheckout",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Checkout> checkouts;
@@ -41,20 +37,12 @@ public class Product {
         this.checkouts = checkouts;
     }
 
-//    public List<Cart> getCarts() {
-//        return carts;
-//    }
-//
-//    public void setCarts(List<Cart> carts) {
-//        this.carts = carts;
-//    }
-
     public void setId(long id) {
         this.id = id;
     }
 
-    public Category getCategory() {
-        return category;
+    public Optional<Category> getCategory() {
+        return Optional.ofNullable(category);
     }
 
     public void setCategory(Category category) {
