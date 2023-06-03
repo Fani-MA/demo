@@ -30,4 +30,16 @@ VALUES
 ('John Doe', '1111', 'john@gmail.com'),
 ('Chris', '1111', 'chris@gmail.com')
 ;
+
+INSERT INTO CATEGORY(ID, NAME)
+VALUE
+(1, 'Laptop');
+
+INSERT INTO PRODUCT(ID, NAME, PRICE, CATEGORY_ID)
+VALUES
+(1, 'Thinkpad T14', 999.99, 1);
+
+INSERT INTO PRODUCT(ID, NAME, PRICE, CATEGORY_ID)
+VALUES
+(2, 'Thinkpad E14', '899.99', 1);
 ```

@@ -40,7 +40,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="NAME" type="VARCHAR(45)"/>
-            <column name="PRICE" type="DECIMAL(10.2)"/>
+            <column name="PRICE" type="DECIMAL(10, 2)"/>
             <column name="CATEGORY_ID" type="INT" >
                 <constraints foreignKeyName="FK_CATEGORY_ID" nullable="true" references="CATEGORY(ID)"/>
             </column>
