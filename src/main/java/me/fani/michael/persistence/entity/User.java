@@ -1,15 +1,16 @@
 package me.fani.michael.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Entity
 @Table(name = "USER")
 public class User implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -31,9 +32,33 @@ public class User implements Serializable {
     @PrimaryKeyJoinColumn
     private UserInfo info;
 
+    @OneToMany(mappedBy = "userId",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Cart> cartListUser;
+
+
+    @OneToMany(mappedBy = "userCheckout",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Checkout> checkouts;
+
+    public List<Checkout> getCheckouts() {
+        return checkouts;
+    }
+
+    public void setCheckouts(List<Checkout> checkouts) {
+        this.checkouts = checkouts;
+    }
 
     public long getId() {
         return id;
+    }
+
+    public List<Cart> getCartListUser() {
+        return cartListUser;
+    }
+
+    public void setCartListUser(List<Cart> cartListUser) {
+        this.cartListUser = cartListUser;
     }
 
     public void setId(long id) {
