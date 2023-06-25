@@ -93,4 +93,10 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="Sub category" author="misha">
+        <addColumn tableName="category">
+            <column name="parent_id" type="int"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

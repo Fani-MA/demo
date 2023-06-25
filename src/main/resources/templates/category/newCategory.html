@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new category</title>
+</head>
+<body>
+    <form method="POST" action="/category">
+        <label for="parentCategory">Parent category</label>
+        <input name="parentId" type="int" id="parentCategory">
+        <br>
+        <label for="category">Category</label>
+        <input name="name" type="text" id="category">
+        <br>
+        <input type="submit" value="Add category">
+    </form>
+
+</body>
+</html>

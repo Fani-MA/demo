@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории товаров</title>
+</head>
+<body>
+    <div th:each="category : ${categoryes}">
+        <a th:href="@{category/parent/{parentId}(parentId=0)}"
+            th:text="${category.getName()}"/>
+    </div>
+
+</body>
+</html>
