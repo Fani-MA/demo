@@ -1,42 +1,46 @@
 package me.fani.michael.web.controllers;
 
-import me.fani.michael.persistence.dao.CategoryReposirory;
+import me.fani.michael.persistence.dao.CategoryRepository;
 import me.fani.michael.persistence.entity.Category;
-import me.fani.michael.web.dto.CreateCategoryRequest;
-import me.fani.michael.web.dto.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("category")
 public class CategoryController {
     @Autowired
-    private CategoryReposirory categoryReposirory;
+    private CategoryRepository categoryReposirory;
 
     @GetMapping
-    List<Category> findAll(){
-        return categoryReposirory.findAll();
+    public String findAll(Model model){
+        model.addAttribute("categoryes", categoryReposirory.findAll());
+        return "category/categoryes.html";
     }
 
-    @GetMapping("{id}")
-    public Resp category(@PathVariable("id") Long id){
-        var resp = new Resp();
-        var categoryes = categoryReposirory.getById(id);
-        resp.setStr(categoryes.toString());
-        return resp;
+    @GetMapping("/new")
+    public String createCategory(Model model){
+        model.addAttribute("category", new Category());
+        return "category/newCategory.html";
     }
+
+    @GetMapping("/parent/{parentId}")
+    public String subCategory(Long parentId, Model model){
+        model.addAttribute("subCategory",categoryReposirory.findAllByParentId(parentId));
+
+        return null;
+    }
+
 
     @PostMapping()
-    public Resp createCategory(@RequestBody CreateCategoryRequest req){
-        var resp =  new Resp();
-        Category newCategory = new Category();
-        newCategory.setName(req.getName());
-        Category saveCategory = categoryReposirory.save(newCategory);
-        resp.setStr(saveCategory.toString());
-        return resp;
+    public String createCategory(@ModelAttribute("category") Category category, Model model){
+        categoryReposirory.save(category);
+        //TODO create html
+        return "redirect:category";
     }
 
 

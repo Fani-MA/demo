@@ -1,6 +1,6 @@
 package me.fani.michael.web.controllers;
 
-import me.fani.michael.persistence.dao.CategoryReposirory;
+import me.fani.michael.persistence.dao.CategoryRepository;
 import me.fani.michael.persistence.dao.ProductRepo;
 import me.fani.michael.persistence.entity.Category;
 import me.fani.michael.persistence.entity.Product;
@@ -19,7 +19,7 @@ public class ProductController {
     @Autowired
     private ProductRepo productRepo;
     @Autowired
-    private CategoryReposirory  categoryReposirory;
+    private CategoryRepository categoryReposirory;
 
 
     @GetMapping

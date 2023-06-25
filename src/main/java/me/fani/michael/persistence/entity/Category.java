@@ -16,6 +16,9 @@ public class Category {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "parent_id")
+    private long parentId;
+
     @Column(name="NAME")
     private String name;
 
@@ -47,6 +50,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
     }
 
     @Override
