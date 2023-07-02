@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/category/{id}(id=${product.getCategory().getId()})}" th:text="${product.getCategory().getName()}"/>
+</nav>
+
+<br>
+    <p th:text="'Name: ' + ${product.getName()}"/>
+    <p th:text="'Price: '+ ${product.getPrice}"/>
+</body>
+</html>
