@@ -5,11 +5,13 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface CategoryReposirory extends CrudRepository<Category, Long > {
+public interface CategoryRepository extends CrudRepository<Category, Long > {
 
 
     @Override
     List<Category> findAll();
+
+    List<Category> findAllByParentId(Long parentId);
 
 
     Category getById(Long id);

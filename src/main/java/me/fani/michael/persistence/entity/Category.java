@@ -15,11 +15,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
-
     @Column(name="NAME")
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @Column(name = "parent_id")
+    private long parentId;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Product> products;
 
@@ -47,6 +49,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
     }
 
     @Override

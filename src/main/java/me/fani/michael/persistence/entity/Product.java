@@ -41,8 +41,8 @@ public class Product {
         this.id = id;
     }
 
-    public Optional<Category> getCategory() {
-        return Optional.ofNullable(category);
+    public Category getCategory() {
+        return category;
     }
 
     public void setCategory(Category category) {

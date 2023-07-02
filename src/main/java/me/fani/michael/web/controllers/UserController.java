@@ -6,14 +6,15 @@ import me.fani.michael.web.dto.CreateUserRequest;
 import me.fani.michael.web.dto.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping("users")
 public class UserController {
 
@@ -23,31 +24,30 @@ public class UserController {
 
 
     @GetMapping
-    public List<User> allUsers() {
-
-        return userRepo.findAll();
+    public String allUsers(Model model) {
+        model.addAttribute("users",userRepo.findAll());
+        return "users/users.html";
     }
+
+    @GetMapping("/new")
+    public String newUser(Model model){
+        model.addAttribute("user", new User());
+        return "/users/new.html";
+    }
+
 
     @PostMapping()
-    public Resp createUser(@RequestBody CreateUserRequest req) {
-        var resp = new Resp();
-        User newUser = new User();
-        newUser.setUsername(req.getName());
-        newUser.setEmail(req.getEmail());
-        newUser.setPassword("1111");
-        newUser.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
-        User savedUser = userRepo.save(newUser);
-        resp.setStr("Successfully save with ID=" + savedUser.getId());
-        return resp;
+    public String createUser(@ModelAttribute("user") User user,Model model) {
+        user.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
+        userRepo.save(user);
+        return "redirect:users";
     }
 
 
-    @GetMapping("{id}")
-    public Resp user(@PathVariable("id") Long id) {
-        var resp = new Resp();
-        var users = userRepo.getById(id);
-        resp.setStr(users.toString());
-        return resp;
+    @GetMapping("/{id}")
+    public String user(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user",userRepo.getById(id));
+        return "users/user.html";
     }
 
     @GetMapping("{id}/address")

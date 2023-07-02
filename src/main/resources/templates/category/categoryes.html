@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории товаров</title>
+</head>
+<body>
+
+    <nav th:each="category : ${allCategory}">
+        <a th:if="${category.getParentId()==0}" th:href="@{/category/{id}(id=${category.getId()})}"  th:text="${category.getName()}"/>
+<!--            <p th:if="${category.getParentId()==0}" th:text="${category.getName()}"/>-->
+
+    </nav>
+
+
+
+</body>
+</html>
