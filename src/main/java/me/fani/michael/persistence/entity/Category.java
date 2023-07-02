@@ -15,14 +15,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
+    @Column(name="NAME")
+    private String name;
 
     @Column(name = "parent_id")
     private long parentId;
 
-    @Column(name="NAME")
-    private String name;
-
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Product> products;
 

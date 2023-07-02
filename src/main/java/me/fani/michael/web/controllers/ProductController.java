@@ -8,11 +8,13 @@ import me.fani.michael.web.dto.CreateProductRequest;
 import me.fani.michael.web.dto.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("product")
 public class ProductController {
 
@@ -21,37 +23,36 @@ public class ProductController {
     @Autowired
     private CategoryRepository categoryReposirory;
 
+    //TODO: переделать методы с использованием модели и выводом странички на отображение
+    //TODO: добавить методы для изменения и удаления продукта
+
 
     @GetMapping
-    public List<Product> allProduct(){
-        return productRepo.findAll();
+    public String allProduct(Model model){
+        //получаем из БД все товары для отображения на странице
+        model.addAttribute("productList", productRepo.findAll());
+        return "product/allProduct.html";
     }
 
     @GetMapping("{id}")
-    public Resp product(@PathVariable("id") Long id){
-        var resp = new Resp();
-        var products = productRepo.getById(id);
-        resp.setStr(products.toString());
-        return resp;
+    public String product(@PathVariable("id") Long id, Model model){
+        //получаем нужный продукт по id, добавляем в представление для отображения
+        model.addAttribute("product", productRepo.getById(id));
+        return "product/product.html";
+    }
+
+    @GetMapping("/new")
+    public String addProduct(Model model){
+        //создаем объект класса продукт для заполнения в форме на странице(new.html)
+        model.addAttribute("product",new Product());
+        return "product/new.html";
     }
 
     @PostMapping()
-    public Resp createProduct(@RequestBody CreateProductRequest request){
-        var resp = new Resp();
-        var newProduct = new Product();
-        newProduct.setName(request.getName());
-        newProduct.setPrice(request.getPrice());
-        Category category;
-        if(!categoryReposirory.existsById(request.getCategoryId())) {
-            category = new Category();
-            category.setId(1l);
-        }else {
-            category = categoryReposirory.getById(request.getCategoryId());
-        }
-        newProduct.setCategory(category);
-        Product saveProduct = productRepo.save(newProduct);
-        resp.setStr(saveProduct.toString());
-        return resp;
+    public String  createProduct(@ModelAttribute("product") Product product, Model model){
+        //получаем продукт из формы и сохраняем его в БД, перенаправляем на страницу товара(продуктов)
+        productRepo.save(product);
+        return "redirect:product";
     }
 
 
