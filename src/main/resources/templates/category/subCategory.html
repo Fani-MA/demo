@@ -2,11 +2,30 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../CSS/category/navigation.css">
     <title>Sub category</title>
 </head>
 <body>
-    <div th:each="category : ${categoryes}">
+<li class="crumb"> <a href="/category"> All </a></li>
+<nav class="crumbs" th:each="category : ${list}">
+        <li class="crumb"> <a th:href="@{/category/{id}(id=${category.getId()})}" th:text="${category.getName()}"/> </li>
+    </nav>
+
+<br>
+<!--выводим подкатегории текущей категории если они есть-->
+<h4 th:if="${view}" th:text=" 'Sub category'" >Sub category</h4>
+    <div th:each="sub : ${subCategory}">
+        <a th:href="@{/category/{id}(id=${sub.getId()})}" th:text="${sub.getName()}"/>
 
     </div>
+
+<!--выводим все доступные продукты для данной категории если они есть-->
+    <br>
+<h3 th:if="${viewProduct}" >All product</h3>
+    <li th:each="product : ${productList}">
+        <a th:href="@{/product/{id}(id=${product.getId()})}" th:text="${product.getName()}" />
+
+    </li>
+
 </body>
 </html>
