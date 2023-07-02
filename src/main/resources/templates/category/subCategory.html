@@ -2,14 +2,15 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../CSS/category/navigation.css">
+    <link rel="stylesheet"
+          href="../../CSS/category/navigation.css">
     <title>Sub category</title>
 </head>
 <body>
-<li class="crumb"> <a href="/category"> All </a></li>
-<nav class="crumbs" th:each="category : ${list}">
-        <li class="crumb"> <a th:href="@{/category/{id}(id=${category.getId()})}" th:text="${category.getName()}"/> </li>
-    </nav>
+<div style="display:inline-block"> <a href="/category"> All </a></div>
+<div  style="display:inline-block" th:each="category : ${list}">
+    <div style="display:inline-block">  <p style="display:inline-block">></p> <a th:href="@{/category/{id}(id=${category.getId()})}" th:text="${category.getName()}"/> </div>
+    </div>
 
 <br>
 <!--выводим подкатегории текущей категории если они есть-->
