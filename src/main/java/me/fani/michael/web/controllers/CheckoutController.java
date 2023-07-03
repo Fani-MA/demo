@@ -4,16 +4,17 @@ import me.fani.michael.persistence.dao.CheckoutRepo;
 import me.fani.michael.persistence.dao.ProductRepo;
 import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Checkout;
-import me.fani.michael.web.dto.CreateCheckoutRequest;
-import me.fani.michael.web.dto.Resp;
+import me.fani.michael.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
+import java.util.Arrays;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("checkout")
 public class CheckoutController {
 
@@ -25,33 +26,22 @@ public class CheckoutController {
     private UserRepo userRepo;
 
     @GetMapping
-    public List<Checkout>  allCheckouts(){
-        return checkoutRepo.findAll();
+    public String allCheckouts( Model model){
+//        List<Checkout> checkoutList = checkoutRepo.findAllById(user.getId());
+//        model.addAttribute("checkoutList", checkoutList);
+        return "checkout/checkout.html";
     }
 
     @GetMapping("{id}")
-    public Resp checkout(@PathVariable("id") Long id){
-        var response = new Resp();
-        var checkout = checkoutRepo.getById(id);
-        response.setStr(checkout.toString());
-        return response;
+    public String checkout(@PathVariable("id") Long id, Model model){
+        model.addAttribute("checkoutUser", checkoutRepo.findAllByUserCheckoutId(id));
+        return "checkout/checkout.html";
     }
 
     @PostMapping()
-    public Resp createCheckout(@RequestBody CreateCheckoutRequest req){
-        var resp = new Resp();
-        Checkout newCheckout = new Checkout();
-        newCheckout.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
-        newCheckout.setAmount(req.getAmount());
-        if (productRepo.existsById(req.getProductId()) && userRepo.existsById(req.getUserId())) {
-            newCheckout.setProductCheckout(productRepo.getById(req.getProductId()));
-            newCheckout.setUserCheckout(userRepo.getById(req.getUserId()));
-            Checkout saveCheckout = checkoutRepo.save(newCheckout);
-            resp.setStr("Success create new sale id=" + saveCheckout.getId());
-        }else {
-            resp.setStr("Check userId and productId");
-        }
-        return resp;
+    public String createCheckout(@ModelAttribute("checkout") Checkout checkout, Model model){
+        checkoutRepo.save(checkout);
+        return "redirect:/checkout";
     }
 
 

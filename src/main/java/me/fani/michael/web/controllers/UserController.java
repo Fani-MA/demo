@@ -51,13 +51,8 @@ public class UserController {
     }
 
     @GetMapping("{id}/address")
-    public Resp allUserAddress(@PathVariable("id") Long id) {
-        var resp = new Resp();
-        var users = userRepo.getById(id);
-        resp.setStr(users.getInfo()
-                .map(i -> i.getAddress())
-                .orElse("No address specified")
-        );
-        return resp;
+    public String allUserAddress(@PathVariable("id") Long id) {
+        userRepo.getById(id).getInfo().get();
+        return null;
     }
 }

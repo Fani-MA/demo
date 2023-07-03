@@ -49,11 +49,25 @@ public class ProductController {
     }
 
     @PostMapping()
-    public String  createProduct(@ModelAttribute("product") Product product, Model model){
+    public String  createProduct(@ModelAttribute("product") Product product){
         //получаем продукт из формы и сохраняем его в БД, перенаправляем на страницу товара(продуктов)
         productRepo.save(product);
         return "redirect:product";
     }
 
+    //страница редактирования продукта
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") long id, Model model){
+        model.addAttribute("product", productRepo.getById(id));
+        return "product/edit.html";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("product") Product product, @PathVariable("id") long id){
+//        Product updateProduct = productRepo.getById(id);
+        product.setId(id);
+        productRepo.save(product);
+        return "redirect:/product";
+    }
 
 }

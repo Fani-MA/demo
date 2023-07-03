@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Sale</title>
 </head>
 <body>
-$END$
+    <h5 >Purchased:</h5>
+    <li th:each="checkout : ${checkoutUser}">
+        <a th:href="@{/product/{id}(id=${checkout.getProductCheckout().getId()})}" th:text="${checkout.getProductCheckout().getName()}" />
+    </li>
 </body>
 </html>
