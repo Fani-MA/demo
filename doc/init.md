@@ -45,9 +45,9 @@ VALUES
 ```
 
 ```sql
-insert into category (NAME) values ('Games',0);
-insert into category (NAME) values ('Book',0);
-insert into category (NAME) values ('Kino',0);
+insert into category (NAME, parent_id) values ('Games',0);
+insert into category (NAME, parent_id) values ('Book',0);
+insert into category (NAME, parent_id) values ('Kino',0);
 insert into category (NAME, parent_id) values ('Strategy', 1);
 insert into category (NAME, parent_id) values ('RPG', 1);
 insert into category (NAME, parent_id) values ('Syfy', 1);
