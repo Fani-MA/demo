@@ -50,6 +50,8 @@ public class UserController {
         return "users/user.html";
     }
 
+
+    //TODO дописать метод
     @GetMapping("{id}/address")
     public String allUserAddress(@PathVariable("id") Long id) {
         userRepo.getById(id).getInfo().get();

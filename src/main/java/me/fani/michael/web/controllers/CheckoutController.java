@@ -34,7 +34,7 @@ public class CheckoutController {
 
     @GetMapping("{id}")
     public String checkout(@PathVariable("id") Long id, Model model){
-        model.addAttribute("checkoutUser", checkoutRepo.findAllByUserCheckoutId(id));
+        model.addAttribute("checkoutUser", checkoutRepo.getById(id));
         return "checkout/checkout.html";
     }
 
