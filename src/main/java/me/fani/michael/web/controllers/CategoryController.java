@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -45,12 +46,8 @@ public class CategoryController {
             category=categoryReposirory.getById(category.getParentId());
         }
         list.add(category);
-        int size = list.size();
-        var reverce = new Category[size];
-        for (int i=0; i<size; i++ ){
-            reverce[i] = list.get(size-1-i);
-        }
-        model.addAttribute("list", reverce);
+        Collections.reverse(list);
+        model.addAttribute("list", list);
 
         //создаем список подкатегорий для текущей категории(для навигации) и добавляем в модель если он существует
         List<Category> subCategory = categoryReposirory.findAllByParentId(id);
@@ -88,6 +85,4 @@ public class CategoryController {
         categoryReposirory.save(category);
         return "redirect:category";
     }
-
-
 }

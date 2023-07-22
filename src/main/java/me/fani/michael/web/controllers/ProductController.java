@@ -21,7 +21,7 @@ public class ProductController {
     @Autowired
     private ProductRepo productRepo;
     @Autowired
-    private CategoryRepository categoryReposirory;
+    private CategoryRepository categoryRepository;
 
     //TODO: переделать методы с использованием модели и выводом странички на отображение
     //TODO: добавить методы для изменения и удаления продукта

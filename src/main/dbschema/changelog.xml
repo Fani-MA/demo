@@ -13,7 +13,7 @@
             <column name="USERNAME" type="varchar(16)">
                 <constraints nullable="false"/>
             </column>
-            <column name="PASSWORD" type="varchar(32)">
+            <column name="PASSWORD" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="EMAIL" type="varchar(255)">
@@ -99,41 +99,24 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="Create table role"  author="misha">
-        <createTable tableName="ROLE">
-            <column name="ID" type="int" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="NAME" type="varchar(30)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="Create table user_roles" author="misha">
-        <createTable tableName="USER_ROLE">
-            <column name="ID" type="int" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="USER_ROLE_ID" type="int">
-                <constraints nullable="false" foreignKeyName="fk_user_role_id" references="USER(ID)"/>
-            </column>
-            <column name="ROLE_ID" type="int">
-                <constraints nullable="false" foreignKeyName="fk_role_id" references="ROLE(ID)"/>
-            </column>
-        </createTable>
+    <changeSet id="Add column role" author="misha">
+        <addColumn tableName="USER">
+            <column name="ROLE" type="varchar(30)"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="Insert into user" author="misha">
         <insert tableName="USER">
             <column name="USERNAME" value="misha"/>
-            <column name="PASSWORD" value="misha"/>
+            <column name="PASSWORD" value="$2a$12$YpF/FOHJ0ZrtVGHJggtTJ.2y930HTu2A3/L2SH3T7kUt8ilout.oy"/>
             <column name="EMAIL" value="misha@mail.com"/>
+            <column name="ROLE" value="USER"/>
         </insert>
         <insert tableName="USER">
             <column name="USERNAME" value="stas"/>
-            <column name="PASSWORD" value="stas"/>
+            <column name="PASSWORD" value="$2a$12$RoJbWjGmwBLBSAg6IibWgeLRLvdXAGeSHoIJYqyJjNpQK9q4nje5e"/>
             <column name="EMAIL" value="stas@mail.com"/>
+            <column name="ROLE" value="ADMIN"/>
         </insert>
     </changeSet>
 
@@ -266,13 +249,5 @@
         </insert>
     </changeSet>
 
-    <changeSet id="Insert into role" author="misha">
-        <insert tableName="ROLE">
-            <column name="NAME" value="USER"/>
-        </insert>
-        <insert tableName="ROLE">
-            <column name="NAME" value="ADMIN"/>
-        </insert>
-    </changeSet>
 
 </databaseChangeLog>
