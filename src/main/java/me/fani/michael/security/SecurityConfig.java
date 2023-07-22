@@ -1,5 +1,7 @@
 package me.fani.michael.security;
 
+import me.fani.michael.persistence.entity.Permission;
+import me.fani.michael.persistence.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -24,20 +28,20 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/product/**").hasAuthority(Permission.USER_WRITE.getPermission())
                         .requestMatchers("/category/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
-                        .permitAll()
-                )
-                .rememberMe();
-
+                .formLogin(withDefaults())
+                .rememberMe()
+        ;
         return http.build();
     }
+
 
 
     protected void securityFilterChain(AuthenticationManagerBuilder auth){

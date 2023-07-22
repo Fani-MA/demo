@@ -51,7 +51,7 @@ public class UserController {
     }
 
 
-    //TODO дописать метод
+    //TODO дописать методы и доступ @PreAuthorize
     @GetMapping("{id}/address")
     public String allUserAddress(@PathVariable("id") Long id) {
         userRepo.getById(id).getInfo().get();
