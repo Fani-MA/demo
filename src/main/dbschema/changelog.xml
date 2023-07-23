@@ -249,5 +249,44 @@
         </insert>
     </changeSet>
 
+    <changeSet id="Insert into sale(checkout)" author="misha">
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="3"/>
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="12"/>
+        </insert>
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="2"/>
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="6"/>
+        </insert>
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="2"/>
+            <column name="USER_ID" value="2"/>
+            <column name="PRODUCT_ID" value="1"/>
+        </insert>
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="1"/>
+            <column name="USER_ID" value="2"/>
+            <column name="PRODUCT_ID" value="13"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="Insert into cart" author="misha">
+        <insert tableName="CART">
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="13"/>
+        </insert>
+        <insert tableName="CART">
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="4"/>
+        </insert>
+        <insert tableName="CART">
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="9"/>
+        </insert>
+    </changeSet>
+
+
 
 </databaseChangeLog>

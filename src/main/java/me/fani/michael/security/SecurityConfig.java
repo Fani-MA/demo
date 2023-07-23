@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +34,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/product/**").hasAuthority(Permission.USER_WRITE.getPermission())
-                        .requestMatchers("/category/**").permitAll()
+                        .requestMatchers("/category/**").hasAuthority(Permission.USER_READ.getPermission())
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
@@ -41,7 +42,6 @@ public class SecurityConfig {
         ;
         return http.build();
     }
-
 
 
     protected void securityFilterChain(AuthenticationManagerBuilder auth){
