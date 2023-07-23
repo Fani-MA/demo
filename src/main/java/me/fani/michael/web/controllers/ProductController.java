@@ -2,17 +2,12 @@ package me.fani.michael.web.controllers;
 
 import me.fani.michael.persistence.dao.CategoryRepository;
 import me.fani.michael.persistence.dao.ProductRepo;
-import me.fani.michael.persistence.entity.Category;
 import me.fani.michael.persistence.entity.Product;
-import me.fani.michael.web.dto.CreateProductRequest;
-import me.fani.michael.web.dto.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("product")
@@ -62,11 +57,15 @@ public class ProductController {
         return "product/edit.html";
     }
 
+    //todo: настроить конфигурационный файл для обработки скрытых полей(_method)
+    //todo: пример(урок№23):конфигурационный класс - расширяет AbstractAnnotationConfigDispatcherServletInitializer
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("product") Product product, @PathVariable("id") long id){
-//        Product updateProduct = productRepo.getById(id);
-        product.setId(id);
-        productRepo.save(product);
+        Product updateProduct = productRepo.getById(id);
+        updateProduct.setName(product.getName());
+        updateProduct.setPrice(product.getPrice());
+        updateProduct.setCategory(product.getCategory());
+        productRepo.save(updateProduct);
         return "redirect:/product";
     }
 

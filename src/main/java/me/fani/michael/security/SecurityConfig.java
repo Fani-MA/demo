@@ -35,6 +35,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers(HttpMethod.POST,"/**").hasAuthority(Permission.USER_WRITE.getPermission())
                         .requestMatchers("/product/**").hasAuthority(Permission.USER_WRITE.getPermission())
                         .requestMatchers("/category/**").hasAuthority(Permission.USER_READ.getPermission())
                         .anyRequest().authenticated()

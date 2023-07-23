@@ -7,7 +7,6 @@
 <body>
     <div th:each="product : ${productList}">
         <a th:href="@{/product/{id}(id=${product.getId()})}" th:text="${product.getName}"/>
-
     </div>
 </body>
 </html>

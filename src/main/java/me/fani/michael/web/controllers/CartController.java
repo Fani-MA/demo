@@ -4,9 +4,9 @@ import me.fani.michael.persistence.dao.CartRepo;
 import me.fani.michael.persistence.dao.ProductRepo;
 import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Cart;
+import me.fani.michael.persistence.entity.Product;
 import me.fani.michael.persistence.entity.User;
 import me.fani.michael.web.dto.CreateCartRequest;
-import me.fani.michael.web.dto.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,6 @@ public class CartController {
     private UserRepo userRepo;
 
 
-    //TODO добавить нормальное представление
     @GetMapping
     public String allCart(Model model){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
@@ -40,21 +39,23 @@ public class CartController {
         return "cart/cart.html";
     }
 
+    @GetMapping("/new")
+    public void addCart(Model model){
+        model.addAttribute("cart", new Cart());
+    }
+
 
     //TODO изменить метод: возвращает представление, используем Model
-    @PostMapping()
-    public Resp createCart(@RequestBody CreateCartRequest req){
-        var resp = new Resp();
-        Cart newCart = new Cart();
-        if(userRepo.existsById(req.getUserId()) && productRepo.existsById(req.getProductId())){
-            newCart.setUserId(userRepo.getById(req.getUserId()));
-            newCart.setProductId(productRepo.getById(req.getProductId()));
-            cartRepo.save(newCart);
-            resp.setStr("Success");
-        }else{
-            resp.setStr("Check userId and productId");
+    @PostMapping("/{id}")
+    public String addCart(@PathVariable("id") Long id){
+        User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
+        if(user != null){
+            Cart addCart = new Cart();
+            addCart.setProductId(productRepo.getById(id));
+            addCart.setUserId(user);
+            cartRepo.save(addCart);
         }
-        return resp;
+        return "redirect:/cart";
     }
 
     //TODO добавить контроллер на удаление из корзины
