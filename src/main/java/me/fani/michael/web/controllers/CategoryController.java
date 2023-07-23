@@ -36,12 +36,9 @@ public class CategoryController {
         List<Product> productList = new  ArrayList<>();
 
         //создаем массив для отображения вложенности классов(хлебные крошки) и передаем в модель
-        // n - ограничения вложенности
         List<Category> list = new ArrayList<>();
-        int n=0;
         var category = categoryReposirory.getById(id);
-        while (category.getParentId()!=0 && n<8){
-            n++;
+        while (category.getParentId()!=0){
             list.add(category);
             category=categoryReposirory.getById(category.getParentId());
         }
@@ -57,10 +54,8 @@ public class CategoryController {
             model.addAttribute("subCategory", subCategory);
         }
 
-
         //создаю массив для поиска всех подклассов текущего класса для получения всех продуктов данной категории
         //после чего получаем массив продуктов(для текущей категории) для последующего отображения на странице
-        //todo: доделать представление(привести в нормальный вид)=> ХК сверху, сбоку подкатегории, остальная часть вывод продуктов для данной категории
         if(!categoryReposirory.getById(id).getProducts().isEmpty()) productList.addAll(categoryReposirory.getById(id).getProducts());
         if(view) {
             for (Category sub : subCategory) {

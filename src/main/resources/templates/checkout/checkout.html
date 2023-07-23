@@ -6,7 +6,7 @@
 </head>
 <body>
     <h5 >Purchased:</h5>
-    <li th:each="checkout : ${checkoutUser}">
+    <li th:each="checkout : ${checkoutList}">
         <a th:href="@{/product/{id}(id=${checkout.getProductCheckout().getId()})}" th:text="${checkout.getProductCheckout().getName()}" />
     </li>
 </body>

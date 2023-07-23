@@ -6,6 +6,7 @@ import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Checkout;
 import me.fani.michael.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,15 @@ public class CheckoutController {
     @Autowired
     private UserRepo userRepo;
 
+
+
     @GetMapping
     public String allCheckouts( Model model){
-//        List<Checkout> checkoutList = checkoutRepo.findAllById(user.getId());
-//        model.addAttribute("checkoutList", checkoutList);
+        User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
+        if(user!=null) {
+            List<Checkout> checkoutList = user.getCheckouts();
+            model.addAttribute("checkoutList", checkoutList);
+        }
         return "checkout/checkout.html";
     }
 

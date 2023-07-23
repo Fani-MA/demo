@@ -282,7 +282,7 @@
             <column name="PRODUCT_ID" value="4"/>
         </insert>
         <insert tableName="CART">
-            <column name="USER_ID" value="1"/>
+            <column name="USER_ID" value="2"/>
             <column name="PRODUCT_ID" value="9"/>
         </insert>
     </changeSet>
