@@ -10,6 +10,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +23,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private UserDetailsService userDetailsService;
@@ -36,8 +39,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
 //                        .requestMatchers(HttpMethod.POST,"/**").hasAuthority(Permission.USER_WRITE.getPermission())
-                        .requestMatchers("/product/**").hasAuthority(Permission.USER_WRITE.getPermission())
-                        .requestMatchers("/category/**").hasAuthority(Permission.USER_READ.getPermission())
+//                        .requestMatchers("/product/**").hasAuthority(Permission.USER_WRITE.getPermission())
+//                        .requestMatchers("/category/**").hasAuthority(Permission.USER_READ.getPermission())
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())

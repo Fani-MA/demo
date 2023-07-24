@@ -11,7 +11,5 @@ public interface CartRepo extends CrudRepository<Cart, Long> {
     @Override
     List<Cart> findAll();
 
-    Cart getByProductId(Long id);
 
-    //List<Cart> findByUser(Long id);
 }

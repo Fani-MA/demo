@@ -6,6 +6,7 @@ import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Checkout;
 import me.fani.michael.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class CheckoutController {
 
 
     @GetMapping
+    @PreAuthorize("hasAuthority('user:read')")
     public String allCheckouts( Model model){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
         if(user!=null) {
@@ -39,12 +41,14 @@ public class CheckoutController {
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasAuthority('user:read')")
     public String checkout(@PathVariable("id") Long id, Model model){
         model.addAttribute("checkoutUser", checkoutRepo.getById(id));
         return "checkout/checkout.html";
     }
 
     @PostMapping()
+    @PreAuthorize("hasAuthority('user:read')")
     public String createCheckout(@ModelAttribute("checkout") Checkout checkout, Model model){
         checkoutRepo.save(checkout);
         return "redirect:/checkout";

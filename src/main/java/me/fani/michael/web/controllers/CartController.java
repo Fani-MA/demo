@@ -8,6 +8,7 @@ import me.fani.michael.persistence.entity.Product;
 import me.fani.michael.persistence.entity.User;
 import me.fani.michael.web.dto.CreateCartRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ public class CartController {
 
 
     @GetMapping
+    @PreAuthorize("hasAuthority('user:read')")
     public String allCart(Model model){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
         if(user != null){
@@ -40,6 +42,7 @@ public class CartController {
     }
 
     @GetMapping("/new")
+    @PreAuthorize("hasAuthority('user:write')")
     public void addCart(Model model){
         model.addAttribute("cart", new Cart());
     }
@@ -47,6 +50,7 @@ public class CartController {
 
     //TODO изменить метод: возвращает представление, используем Model
     @PostMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:write')")
     public String addCart(@PathVariable("id") Long id){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
         if(user != null){

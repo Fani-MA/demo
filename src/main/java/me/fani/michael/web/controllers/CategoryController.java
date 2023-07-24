@@ -4,6 +4,7 @@ import me.fani.michael.persistence.dao.CategoryRepository;
 import me.fani.michael.persistence.entity.Category;
 import me.fani.michael.persistence.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +21,21 @@ public class CategoryController {
     private CategoryRepository categoryReposirory;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('user:read')")
     public String findAll(Model model){
         model.addAttribute("allCategory", categoryReposirory.findAll());
         return "category/categoryes.html";
     }
 
     @GetMapping("/new")
+    @PreAuthorize("hasAuthority('user:write')")
     public String createCategory(Model model){
         model.addAttribute("category", new Category());
         return "category/newCategory.html";
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:read')")
     public String subCategory(@PathVariable("id") Long id, Model model){
         List<Product> productList = new  ArrayList<>();
 
@@ -76,6 +80,7 @@ public class CategoryController {
 
 
     @PostMapping()
+    @PreAuthorize("hasAuthority('user:write')")
     public String createCategory(@ModelAttribute("category") Category category, Model model){
         categoryReposirory.save(category);
         return "redirect:category";
