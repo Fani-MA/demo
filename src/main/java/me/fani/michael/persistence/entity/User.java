@@ -2,6 +2,8 @@ package me.fani.michael.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name = "USER")
-public class User implements Serializable {
+public class User  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -27,6 +29,10 @@ public class User implements Serializable {
 
     @Column(name = "CREATE_TIME")
     private Timestamp createTime;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "ROLE")
+    private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
@@ -103,6 +109,14 @@ public class User implements Serializable {
 
     public void setInfo(UserInfo info) {
         this.info = info;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

@@ -4,14 +4,20 @@ import me.fani.michael.persistence.dao.CartRepo;
 import me.fani.michael.persistence.dao.ProductRepo;
 import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Cart;
+import me.fani.michael.persistence.entity.Product;
+import me.fani.michael.persistence.entity.User;
 import me.fani.michael.web.dto.CreateCartRequest;
-import me.fani.michael.web.dto.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+
+@Controller
 @RequestMapping("cart")
 public class CartController {
     @Autowired
@@ -23,24 +29,39 @@ public class CartController {
     @Autowired
     private UserRepo userRepo;
 
+
     @GetMapping
-    public List<Cart> allCart(){
-        return cartRepo.findAll();
+    @PreAuthorize("hasAuthority('user:read')")
+    public String allCart(Model model){
+        User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
+        if(user != null){
+            List<Cart> cartList = user.getCartListUser();
+            model.addAttribute("cartList", cartList);
+        }
+        return "cart/cart.html";
     }
 
-    @PostMapping()
-    public Resp createCart(@RequestBody CreateCartRequest req){
-        var resp = new Resp();
-        Cart newCart = new Cart();
-        if(userRepo.existsById(req.getUserId()) && productRepo.existsById(req.getProductId())){
-            newCart.setUserId(userRepo.getById(req.getUserId()));
-            newCart.setProductId(productRepo.getById(req.getProductId()));
-            cartRepo.save(newCart);
-            resp.setStr("Success");
-        }else{
-            resp.setStr("Check userId and productId");
-        }
-        return resp;
+    @GetMapping("/new")
+    @PreAuthorize("hasAuthority('user:write')")
+    public void addCart(Model model){
+        model.addAttribute("cart", new Cart());
     }
+
+
+    //TODO изменить метод: возвращает представление, используем Model
+    @PostMapping("/{id}")
+    @PreAuthorize("hasAuthority('user:write')")
+    public String addCart(@PathVariable("id") Long id){
+        User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
+        if(user != null){
+            Cart addCart = new Cart();
+            addCart.setProductId(productRepo.getById(id));
+            addCart.setUserId(user);
+            cartRepo.save(addCart);
+        }
+        return "redirect:/cart";
+    }
+
+    //TODO добавить контроллер на удаление из корзины
 
 }

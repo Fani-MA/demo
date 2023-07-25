@@ -43,3 +43,14 @@ INSERT INTO PRODUCT(ID, NAME, PRICE, CATEGORY_ID)
 VALUES
 (2, 'Thinkpad E14', '899.99', 1);
 ```
+
+```properties
+user_1:
+    username=misha
+    password=misha
+    role=USER
+user_2:
+    usernsme=stas
+    password=stas
+    role=ADMIN
+```

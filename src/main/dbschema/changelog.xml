@@ -13,7 +13,7 @@
             <column name="USERNAME" type="varchar(16)">
                 <constraints nullable="false"/>
             </column>
-            <column name="PASSWORD" type="varchar(32)">
+            <column name="PASSWORD" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="EMAIL" type="varchar(255)">
@@ -92,5 +92,201 @@
             <column name="ADDRESS" type="VARCHAR(255)" />
         </createTable>
     </changeSet>
+
+    <changeSet id="Sub category" author="misha">
+        <addColumn tableName="CATEGORY">
+            <column name="PARENT_ID" type="int"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="Add column role" author="misha">
+        <addColumn tableName="USER">
+            <column name="ROLE" type="varchar(30)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="Insert into user" author="misha">
+        <insert tableName="USER">
+            <column name="USERNAME" value="misha"/>
+            <column name="PASSWORD" value="$2a$12$YpF/FOHJ0ZrtVGHJggtTJ.2y930HTu2A3/L2SH3T7kUt8ilout.oy"/>
+            <column name="EMAIL" value="misha@mail.com"/>
+            <column name="ROLE" value="USER"/>
+        </insert>
+        <insert tableName="USER">
+            <column name="USERNAME" value="stas"/>
+            <column name="PASSWORD" value="$2a$12$RoJbWjGmwBLBSAg6IibWgeLRLvdXAGeSHoIJYqyJjNpQK9q4nje5e"/>
+            <column name="EMAIL" value="stas@mail.com"/>
+            <column name="ROLE" value="ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="Insert into category" author="misha">
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Games"/>
+            <column name="PARENT_ID" value="0"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Books"/>
+            <column name="PARENT_ID" value="0"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Movie"/>
+            <column name="PARENT_ID" value="0"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Strategy"/>
+            <column name="PARENT_ID" value="1"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="RPG"/>
+            <column name="PARENT_ID" value="1"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Sci-fi"/>
+            <column name="PARENT_ID" value="1"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Triller"/>
+            <column name="PARENT_ID" value="3"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Comedy"/>
+            <column name="PARENT_ID" value="3"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Classic"/>
+            <column name="PARENT_ID" value="2"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Fantasy"/>
+            <column name="PARENT_ID" value="2"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="History"/>
+            <column name="PARENT_ID" value="2"/>
+        </insert>
+        <insert tableName="CATEGORY">
+            <column name="NAME" value="Novel"/>
+            <column name="PARENT_ID" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="Insetr into product" author="misha">
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Warhammer"/>
+            <column name="PRICE" value="5.89"/>
+            <column name="CATEGORY_ID" value="4"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="WOW"/>
+            <column name="PRICE" value="16.5"/>
+            <column name="CATEGORY_ID" value="5"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="King of bounty"/>
+            <column name="PRICE" value="9"/>
+            <column name="CATEGORY_ID" value="4"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Warcraft III"/>
+            <column name="PRICE" value="17.8"/>
+            <column name="CATEGORY_ID" value="4"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="General"/>
+            <column name="PRICE" value="7.89"/>
+            <column name="CATEGORY_ID" value="4"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Syster act"/>
+            <column name="PRICE" value="9.59"/>
+            <column name="CATEGORY_ID" value="8"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Jon Yic"/>
+            <column name="PRICE" value="7.25"/>
+            <column name="CATEGORY_ID" value="7"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Matrix"/>
+            <column name="PRICE" value="12.8"/>
+            <column name="CATEGORY_ID" value="6"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Star Wars"/>
+            <column name="PRICE" value="12.99"/>
+            <column name="CATEGORY_ID" value="6"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Master end Margarit"/>
+            <column name="PRICE" value="5.89"/>
+            <column name="CATEGORY_ID" value="9"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="The witcher"/>
+            <column name="PRICE" value="8.99"/>
+            <column name="CATEGORY_ID" value="10"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Overgreared"/>
+            <column name="PRICE" value="17.3"/>
+            <column name="CATEGORY_ID" value="12"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Dark king"/>
+            <column name="PRICE" value="14.9"/>
+            <column name="CATEGORY_ID" value="12"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="Zombie knight"/>
+            <column name="PRICE" value="11.55"/>
+            <column name="CATEGORY_ID" value="12"/>
+        </insert>
+        <insert tableName="PRODUCT">
+            <column name="NAME" value="1812"/>
+            <column name="PRICE" value="5.75"/>
+            <column name="CATEGORY_ID" value="11"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="Insert into sale(checkout)" author="misha">
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="3"/>
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="12"/>
+        </insert>
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="2"/>
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="6"/>
+        </insert>
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="2"/>
+            <column name="USER_ID" value="2"/>
+            <column name="PRODUCT_ID" value="1"/>
+        </insert>
+        <insert tableName="SALE">
+            <column name="AMOUNT" value="1"/>
+            <column name="USER_ID" value="2"/>
+            <column name="PRODUCT_ID" value="13"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="Insert into cart" author="misha">
+        <insert tableName="CART">
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="13"/>
+        </insert>
+        <insert tableName="CART">
+            <column name="USER_ID" value="1"/>
+            <column name="PRODUCT_ID" value="4"/>
+        </insert>
+        <insert tableName="CART">
+            <column name="USER_ID" value="2"/>
+            <column name="PRODUCT_ID" value="9"/>
+        </insert>
+    </changeSet>
+
+
 
 </databaseChangeLog>
