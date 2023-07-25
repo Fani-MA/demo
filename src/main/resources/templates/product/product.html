@@ -14,8 +14,9 @@
 </nav>
 
 <br>
-    <p th:text="'Name: ' + ${product.getName()}"/>
-    <p th:text="'Price: '+ ${product.getPrice}"/>
+    <p th:text="'Name:     ' + ${product.getName()}"/>
+    <p th:text="'Price:    '+ ${product.getPrice}"/>
+    <p th:text="'For sale: ' + ${product.getQuantity}"/>
     <br>
     <form th:method="post" th:action="@{/cart/{id}(id=${product.getId()})}">
         <input type="submit" value="Add product in cart">

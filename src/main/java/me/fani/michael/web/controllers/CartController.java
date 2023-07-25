@@ -4,9 +4,8 @@ import me.fani.michael.persistence.dao.CartRepo;
 import me.fani.michael.persistence.dao.ProductRepo;
 import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Cart;
-import me.fani.michael.persistence.entity.Product;
 import me.fani.michael.persistence.entity.User;
-import me.fani.michael.web.dto.CreateCartRequest;
+import me.fani.michael.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +27,8 @@ public class CartController {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    CartService cartService;
 
 
     @GetMapping
@@ -48,9 +49,8 @@ public class CartController {
     }
 
 
-    //TODO изменить метод: возвращает представление, используем Model
     @PostMapping("/{id}")
-    @PreAuthorize("hasAuthority('user:write')")
+    @PreAuthorize("hasAuthority('user:read')")
     public String addCart(@PathVariable("id") Long id){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
         if(user != null){
@@ -62,6 +62,18 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    //TODO добавить контроллер на удаление из корзины
+    @GetMapping("/buy")
+    public String buy(Model model){
+        try {
+            cartService.buyAll();
+        } catch (RuntimeException e){
+            model.addAttribute("ex",e.toString());
+            return "redirect:/cart";
+        }
+
+
+        return "redirect:/";
+    }
+
 
 }
