@@ -2,6 +2,10 @@ package me.fani.michael.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
@@ -19,13 +23,19 @@ public class User  implements Serializable {
     private long id;
 
     @Column(name = "USERNAME")
+    @NotEmpty(message = "Name should be not empty")
+    @Size(min = 5, max = 50, message = "Name should be between 5 and 50 characters ")
     private String username;
 
-    @Column(name = "EMAIL")
-    private String email;
-
     @Column(name = "PASSWORD")
+    @NotEmpty(message = "Password should be not empty")
+    @Size(min = 8, max = 100, message = "Name should be between 8 and 100 characters ")
     private String password;
+
+    @Column(name = "EMAIL")
+    @NotEmpty(message = "Email should be not empty")
+    @Email(message = "Email is not valid")
+    private String email;
 
     @Column(name = "CREATE_TIME")
     private Timestamp createTime;

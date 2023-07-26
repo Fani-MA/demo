@@ -1,5 +1,6 @@
 package me.fani.michael.web.controllers;
 
+import jakarta.validation.Valid;
 import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Role;
 import me.fani.michael.persistence.entity.User;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
@@ -43,7 +45,9 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) return "/users/new.html";
+
         user.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
