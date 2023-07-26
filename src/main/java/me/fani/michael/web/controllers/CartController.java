@@ -49,14 +49,18 @@ public class CartController {
     }
 
 
-    @PostMapping("/{id}")
+    @PostMapping("/new/{id}")
     @PreAuthorize("hasAuthority('user:read')")
-    public String addCart(@PathVariable("id") Long id){
+    public String addCart(@PathVariable("id") long id,@ModelAttribute("amount") int amount , Model model){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
         if(user != null){
+            if(cartService.productInCart(productRepo.getById(id))){
+                return "redirect:/cart";
+            }
             Cart addCart = new Cart();
             addCart.setProductId(productRepo.getById(id));
             addCart.setUserId(user);
+            addCart.setAmount(amount);
             cartRepo.save(addCart);
         }
         return "redirect:/cart";

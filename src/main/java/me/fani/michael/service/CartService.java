@@ -66,5 +66,13 @@ public class CartService {
         }
     }
 
+    public boolean productInCart(Product product){
+        List<Cart> cartList = allCart();
+        Cart res = cartList.stream().filter(s -> s.getProductId().getId()==product.getId()).findAny().orElse(null);
+        System.out.println("хоть и тупой, но получилось");
+        //boolean find = cartList.stream().map(x -> x.getProductId().getId()==product.getId() ).collect(Collectors.toSet()).isEmpty();
+
+        return res==null? false : true;
+    }
 
 }

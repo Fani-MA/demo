@@ -287,6 +287,17 @@
         </insert>
     </changeSet>
 
+    <changeSet id="Add column quantity" author="misha">
+        <addColumn tableName="PRODUCT">
+            <column name="QUANTITY" type="int" defaultValue="5"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="Add column anount" author="misha">
+        <addColumn tableName="CART">
+            <column name="AMOUNT" type="int" defaultValue="1"/>
+        </addColumn>
+    </changeSet>
 
 
 </databaseChangeLog>

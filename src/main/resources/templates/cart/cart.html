@@ -11,11 +11,14 @@
 
 
     <h3>В корзине: </h3>
-    <li th:each="cart : ${cartList}">
+    <div th:each="cart : ${cartList}">
         <a th:href="@{/product/{id}(id=${cart.getProductId().getId()})}"
            th:text="${cart.getProductId().getName()}">Продукт</a>
+        <button type="button">
+            <a th:href="@{/product}"/>
+        </button>
 
-    </li>
+    </div>
 
 </body>
 </html>
