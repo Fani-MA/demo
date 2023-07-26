@@ -14,11 +14,17 @@
 </nav>
 
 <br>
-    <p th:text="'Name: ' + ${product.getName()}"/>
-    <p th:text="'Price: '+ ${product.getPrice}"/>
+<div class="container">
+    <h1 th:text="${product.getName()}"/>
+    <p th:text="'Price:    '+ ${product.getPrice}"/>
+    <p th:text="'For sale: ' + ${product.getQuantity}"/>
+
     <br>
-    <form th:method="post" th:action="@{/cart/{id}(id=${product.getId()})}">
+    <form th:method="post" th:action="@{/cart/new/{id}(id=${product.getId()})}">
+        <label fot="amount">Amount: </label>
+        <input name="amount" type="number" id="amount">
         <input type="submit" value="Add product in cart">
     </form>
+</div>
 </body>
 </html>

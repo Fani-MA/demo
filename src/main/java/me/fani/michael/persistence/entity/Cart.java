@@ -11,6 +11,9 @@ public class Cart {
     @Column(name = "ID")
     private long id;
 
+    @Column(name = "AMOUNT")
+    private int amount;
+
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
     private Product productId;
@@ -41,5 +44,13 @@ public class Cart {
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

@@ -11,11 +11,15 @@
 
 
     <h3>В корзине: </h3>
-    <li th:each="cart : ${cartList}">
+    <div class="container" th:each="cart : ${cartList}">
+        <h4>
         <a th:href="@{/product/{id}(id=${cart.getProductId().getId()})}"
            th:text="${cart.getProductId().getName()}">Продукт</a>
-
-    </li>
-
+        </h4>
+        <p th:text="'Amount: '+${cart.getAmount()}">Amount</p>
+    </div>
+    <form action="/cart/buy">
+        <button>Buy</button>
+    </form>
 </body>
 </html>
