@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("user")
+
 public class UserController {
 
     @Autowired
@@ -38,6 +40,7 @@ public class UserController {
     @GetMapping("/new")
     public String newUser(Model model){
         if(SecurityContextHolder.getContext().getAuthentication().getName()==null) return "redirect:/user";
+
         model.addAttribute("user", new User());
         return "/users/new.html";
     }
@@ -49,6 +52,7 @@ public class UserController {
         user.setRole(Role.USER);
         userRepo.save(user);
         return "redirect:/category";
+
     }
 
 

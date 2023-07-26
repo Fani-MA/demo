@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                                 .requestMatchers("/user/new").anonymous()
                                 .requestMatchers("/product-page/**").anonymous()
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
