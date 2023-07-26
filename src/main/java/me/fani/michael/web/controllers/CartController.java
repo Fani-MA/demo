@@ -6,6 +6,7 @@ import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Cart;
 import me.fani.michael.persistence.entity.User;
 import me.fani.michael.service.CartService;
+import me.fani.michael.persistence.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,7 @@ public class CartController {
     private UserRepo userRepo;
     @Autowired
     CartService cartService;
+
 
 
     @GetMapping
@@ -61,6 +63,7 @@ public class CartController {
             addCart.setProductId(productRepo.getById(id));
             addCart.setUserId(user);
             addCart.setAmount(amount);
+
             cartRepo.save(addCart);
         }
         return "redirect:/cart";
@@ -78,6 +81,4 @@ public class CartController {
 
         return "redirect:/";
     }
-
-
 }
