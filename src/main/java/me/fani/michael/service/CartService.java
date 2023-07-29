@@ -21,6 +21,9 @@ import java.util.List;
 public class CartService {
 
     @Autowired
+    private AuthService authService;
+
+    @Autowired
     CartRepo cartRepo;
 
     @Autowired
@@ -35,7 +38,8 @@ public class CartService {
 
     public List<Cart> allCart(){
         User user =  userRepo.findByUsername(
-                SecurityContextHolder.getContext().getAuthentication().getName()
+                //SecurityContextHolder.getContext().getAuthentication().getName()
+                authService.getAuthenticatedUserName()
         ).orElse(null);
         if(user==null) return null;
         return user.getCartListUser();

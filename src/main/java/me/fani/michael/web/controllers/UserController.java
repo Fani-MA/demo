@@ -3,6 +3,7 @@ package me.fani.michael.web.controllers;
 import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Role;
 import me.fani.michael.persistence.entity.User;
+import me.fani.michael.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,6 +48,10 @@ public class UserController {
 
     @PostMapping("/new")
     public String createUser(@ModelAttribute("user") User user) {
+        if (!PasswordUtil.isGoodPassword(user.getPassword())) {
+            throw new IllegalArgumentException("Password is too short");
+        }
+
         user.setCreateTime(Timestamp.valueOf(LocalDateTime.now()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
