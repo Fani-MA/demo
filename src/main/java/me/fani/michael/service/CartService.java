@@ -24,23 +24,21 @@ public class CartService {
     private AuthService authService;
 
     @Autowired
-    CartRepo cartRepo;
+    private CartRepo cartRepo;
 
     @Autowired
-    ProductRepo productRepo;
+    private ProductRepo productRepo;
 
     @Autowired
-    UserRepo userRepo;
+    private UserRepo userRepo;
 
     @Autowired
-    CheckoutRepo checkoutRepo;
+    private CheckoutRepo checkoutRepo;
 
 
     public List<Cart> allCart(){
-        User user =  userRepo.findByUsername(
-                //SecurityContextHolder.getContext().getAuthentication().getName()
-                authService.getAuthenticatedUserName()
-        ).orElse(null);
+        User user =  userRepo.findByUsername(authService.getAuthenticatedUserName())
+                .orElse(null);
         if(user==null) return null;
         return user.getCartListUser();
     }
@@ -73,9 +71,6 @@ public class CartService {
     public boolean productInCart(Product product){
         List<Cart> cartList = allCart();
         Cart res = cartList.stream().filter(s -> s.getProductId().getId()==product.getId()).findAny().orElse(null);
-        System.out.println("хоть и тупой, но получилось");
-        //boolean find = cartList.stream().map(x -> x.getProductId().getId()==product.getId() ).collect(Collectors.toSet()).isEmpty();
-
         return res==null? false : true;
     }
 

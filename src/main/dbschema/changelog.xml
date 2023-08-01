@@ -300,4 +300,9 @@
     </changeSet>
 
 
+    <changeSet id="Add column version" author="misha">
+        <addColumn tableName="PRODUCT">
+            <column name="VERSION" type="int" defaultValue="1"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

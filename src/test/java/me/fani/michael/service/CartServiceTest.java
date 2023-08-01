@@ -1,6 +1,8 @@
 package me.fani.michael.service;
 
 import me.fani.michael.App;
+import me.fani.michael.persistence.dao.CategoryRepositoryTest;
+import me.fani.michael.persistence.entity.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,8 +31,10 @@ public class CartServiceTest {
 
     @Test
     public void testNothing() {
+//        CategoryRepositoryTest.init();
         Mockito.when(authServiceMock.getAuthenticatedUserName())
                 .thenReturn("testUser");
+
 
         var result = sut.allCart();
         Assert.assertEquals(result, null);

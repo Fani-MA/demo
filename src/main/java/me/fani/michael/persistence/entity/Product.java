@@ -24,6 +24,10 @@ public class Product {
     @Column(name = "QUANTITY")
     private int quantity;
 
+    @Version
+    @Column(name = "VERSION")
+    private int version;
+
     @ManyToOne
     @JsonIgnore
     private Category category;
@@ -79,6 +83,10 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getVersion() {
+        return version;
     }
 
     @Override
