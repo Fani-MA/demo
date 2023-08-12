@@ -3,18 +3,18 @@ package me.fani.michael.service;
 import me.fani.michael.App;
 import me.fani.michael.persistence.dao.CategoryRepositoryTest;
 import me.fani.michael.persistence.entity.User;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.MOCK,
     classes = App.class
@@ -31,12 +31,17 @@ public class CartServiceTest {
 
     @Test
     public void testNothing() {
-//        CategoryRepositoryTest.init();
+        CategoryRepositoryTest.init();
         Mockito.when(authServiceMock.getAuthenticatedUserName())
-                .thenReturn("testUser");
+                .thenReturn("testuser");
 
 
         var result = sut.allCart();
-        Assert.assertEquals(result, null);
+        assertEquals(result, null);
+    }
+
+    @Test
+    void buyProduct() {
+
     }
 }

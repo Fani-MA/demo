@@ -1,8 +1,12 @@
 package me.fani.michael;
 
-import junit.framework.Test;
+import
+
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit test for simple App.

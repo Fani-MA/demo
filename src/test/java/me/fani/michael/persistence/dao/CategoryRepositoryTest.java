@@ -5,25 +5,26 @@ import com.wix.mysql.config.MysqldConfig;
 import liquibase.integration.commandline.LiquibaseCommandLine;
 import me.fani.michael.App;
 import me.fani.michael.persistence.entity.Category;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
+//import static com.wix.mysql.mbeddedMysql.anEmbeddedMysql;
 import static com.wix.mysql.config.Charset.UTF8;
 import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
 import static com.wix.mysql.distribution.Version.v5_7_27;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.MOCK,
         classes = App.class
@@ -37,7 +38,7 @@ public class CategoryRepositoryTest {
     @Autowired
     CategoryRepository sut;
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         MysqldConfig config = aMysqldConfig(v5_7_27)
                 .withCharset(UTF8)
@@ -47,7 +48,7 @@ public class CategoryRepositoryTest {
                 .withServerVariable("max_connect_errors", 600)
                 .build();
 
-        mysqld = anEmbeddedMysql(config)
+        mysqld.anEmbeddedMysql(config)
                 .start();
 
         // TODO: try to configure via LiquibaseAutoConfiguration
@@ -61,7 +62,7 @@ public class CategoryRepositoryTest {
         cli.execute(args);
     }
 
-    @AfterClass
+    @AfterAll
     public static void teardown() {
         mysqld.stop();
     }
@@ -77,11 +78,11 @@ public class CategoryRepositoryTest {
 
         var res2 = sut.findAll();
 
-        Assert.assertEquals(res2.size(), res1.size() + 1);
+        assertEquals(res2.size(), res1.size() + 1);
 
         var selectedCategory = sut.findById(savedCategory.getId());
-        Assert.assertTrue(selectedCategory.isPresent());
-        Assert.assertEquals(selectedCategory.get().getName(), "testCategory1");
+        assertTrue(selectedCategory.isPresent());
+        assertEquals(selectedCategory.get().getName(), "testCategory1");
 
     }
 }
