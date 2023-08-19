@@ -14,13 +14,19 @@ public class Cart {
     @Column(name = "AMOUNT")
     private int amount;
 
-    @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product productId;
+    @Column(name = "PRODUCT_ID")
+    public long productId;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User userId;
+    @Column(name = "USER_ID")
+    private long userId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "PRODUCT_ID")
+//    private Product product;
+
+//    @ManyToOne
+//    @JoinColumn(name = "USER_ID")
+//    private User userId;
 
     public long getId() {
         return id;
@@ -30,21 +36,37 @@ public class Cart {
         this.id = id;
     }
 
-    public Product getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(Product productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
-    public User getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
+
+    //    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
+
+//    public User getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(User userId) {
+//        this.userId = userId;
+//    }
 
     public int getAmount() {
         return amount;

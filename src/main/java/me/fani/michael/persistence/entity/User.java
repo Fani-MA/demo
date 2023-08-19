@@ -34,38 +34,38 @@ public class User  implements Serializable {
     @Column(name = "ROLE")
     private Role role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private UserInfo info;
-
-    @OneToMany(mappedBy = "userId",fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Cart> cartListUser;
-
-
-    @OneToMany(mappedBy = "userCheckout",fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Checkout> checkouts;
-
-    public List<Checkout> getCheckouts() {
-        return checkouts;
-    }
-
-    public void setCheckouts(List<Checkout> checkouts) {
-        this.checkouts = checkouts;
-    }
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @PrimaryKeyJoinColumn
+//    private UserInfo info;
+//
+//    @OneToMany(mappedBy = "userId",fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Cart> cartListUser;
+//
+//
+//    @OneToMany(mappedBy = "userCheckout",fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Checkout> checkouts;
+//
+//    public List<Checkout> getCheckouts() {
+//        return checkouts;
+//    }
+//
+//    public void setCheckouts(List<Checkout> checkouts) {
+//        this.checkouts = checkouts;
+//    }
 
     public long getId() {
         return id;
     }
 
-    public List<Cart> getCartListUser() {
-        return cartListUser;
-    }
-
-    public void setCartListUser(List<Cart> cartListUser) {
-        this.cartListUser = cartListUser;
-    }
+//    public List<Cart> getCartListUser() {
+//        return cartListUser;
+//    }
+//
+//    public void setCartListUser(List<Cart> cartListUser) {
+//        this.cartListUser = cartListUser;
+//    }
 
     public void setId(long id) {
         this.id = id;
@@ -103,13 +103,13 @@ public class User  implements Serializable {
         this.createTime = createTime;
     }
 
-    public Optional<UserInfo> getInfo() {
-        return Optional.ofNullable(info);
-    }
-
-    public void setInfo(UserInfo info) {
-        this.info = info;
-    }
+//    public Optional<UserInfo> getInfo() {
+//        return Optional.ofNullable(info);
+//    }
+//
+//    public void setInfo(UserInfo info) {
+//        this.info = info;
+//    }
 
     public Role getRole() {
         return role;

@@ -299,5 +299,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="Add version" author="stas">
+        <addColumn tableName="PRODUCT">
+            <column name="VERSION" type="int" defaultValue="1"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

@@ -12,5 +12,7 @@ public interface CheckoutRepo extends CrudRepository<Checkout, Long> {
 
     Checkout getById(Long id);
 
+    List<Checkout> findByUserId(long userId);
+
     //List<Checkout> findByUser(Long id);
 }

@@ -4,6 +4,7 @@ import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Role;
 import me.fani.michael.persistence.entity.User;
 import me.fani.michael.util.PasswordUtil;
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,7 +74,8 @@ public class UserController {
     @GetMapping("{id}/address")
     @PreAuthorize("hasAuthority('user:write')")
     public String allUserAddress(@PathVariable("id") Long id) {
-        userRepo.getById(id).getInfo().get();
-        return null;
+        //userRepo.getById(id).getInfo().get();
+        throw new NotYetImplementedException("allUserAddress");
+        // return null;
     }
 }

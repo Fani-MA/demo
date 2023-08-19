@@ -6,7 +6,6 @@ import me.fani.michael.persistence.dao.UserRepo;
 import me.fani.michael.persistence.entity.Cart;
 import me.fani.michael.persistence.entity.User;
 import me.fani.michael.service.CartService;
-import me.fani.michael.persistence.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,7 +37,7 @@ public class CartController {
     public String allCart(Model model){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
         if(user != null){
-            List<Cart> cartList = user.getCartListUser();
+            List<Cart> cartList = cartRepo.findByUserId(user.getId());
             model.addAttribute("cartList", cartList);
         }
         return "cart/cart.html";
@@ -60,8 +59,8 @@ public class CartController {
                 return "redirect:/cart";
             }
             Cart addCart = new Cart();
-            addCart.setProductId(productRepo.getById(id));
-            addCart.setUserId(user);
+            addCart.setProductId(id);
+            addCart.setUserId(user.getId());
             addCart.setAmount(amount);
 
             cartRepo.save(addCart);

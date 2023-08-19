@@ -34,7 +34,7 @@ public class CheckoutController {
     public String allCheckouts( Model model){
         User user = userRepo.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
         if(user!=null) {
-            List<Checkout> checkoutList = user.getCheckouts();
+            List<Checkout> checkoutList = checkoutRepo.findByUserId(user.getId());
             model.addAttribute("checkoutList", checkoutList);
         }
         return "checkout/checkout.html";

@@ -14,4 +14,5 @@ public interface CartRepo extends CrudRepository<Cart, Long> {
 
    List<Product> findAllByUserId(long id);
 
+    List<Cart> findByUserId(long userId);
 }

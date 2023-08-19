@@ -18,9 +18,14 @@ public class Checkout {
 
     @Column(name = "AMOUNT")
     private int amount;
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User userCheckout;
+
+//    @ManyToOne
+//    @JoinColumn(name = "USER_ID")
+//    private User userCheckout;
+
+//    @ManyToOne
+    @Column(name = "USER_ID")
+    private long userId;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
@@ -51,12 +56,21 @@ public class Checkout {
         this.amount = amount;
     }
 
-    public User getUserCheckout() {
-        return userCheckout;
+//    public User getUserCheckout() {
+//        return userCheckout;
+//    }
+//
+//    public void setUserCheckout(User userCheckout) {
+//        this.userCheckout = userCheckout;
+//    }
+
+
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUserCheckout(User userCheckout) {
-        this.userCheckout = userCheckout;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public Product getProductCheckout() {
@@ -73,7 +87,7 @@ public class Checkout {
                 "id=" + id +
                 ", createTime=" + createTime +
                 ", amount=" + amount +
-                ", userCheckout=" + userCheckout +
+                ", userId=" + userId +
                 ", productCheckout=" + productCheckout +
                 '}';
     }

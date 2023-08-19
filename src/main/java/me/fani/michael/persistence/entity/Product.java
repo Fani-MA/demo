@@ -32,6 +32,10 @@ public class Product {
     @JsonIgnore
     private List<Checkout> checkouts;
 
+    @Version
+    @Column(name = "VERSION")
+    private Integer version;
+
     public List<Checkout> getCheckouts() {
         return checkouts;
     }
